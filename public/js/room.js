@@ -18,6 +18,7 @@ socket.on("can-play", () => {
 })
 const clicked = (id) => {
     if (enableClick) {
+        console.log(gameStatus);
         const element = document.getElementById(id);
         element.innerHTML = myClick;
         element.onclick = null;
@@ -28,7 +29,7 @@ const clicked = (id) => {
         (gameStatus[0] ==1 && gameStatus[3] == 1 && gameStatus[6] == 1)||
         (gameStatus[0] ==1 && gameStatus[4] == 1 && gameStatus[8] == 1)||
         (gameStatus[2] ==1 && gameStatus[5] == 1 && gameStatus[8] == 1)||
-        (gameStatus[6] ==1 && gameStatus[7] == 1 && gameStatus[8] == 1)||
+        (gameStatus[2] ==1 && gameStatus[4] == 1 && gameStatus[6] == 1)||
         (gameStatus[1] ==1 && gameStatus[4] == 1 && gameStatus[7] == 1)||
         (gameStatus[3] ==1 && gameStatus[4] == 1 && gameStatus[5] == 1)||
         (gameStatus[6] ==1 && gameStatus[7] == 1 && gameStatus[8] == 1)) {
@@ -47,7 +48,7 @@ socket.on("clicked", (id) => {
         (gameStatus[0] ==2 && gameStatus[3] ==2 && gameStatus[6] ==2)||
         (gameStatus[0] ==2 && gameStatus[4] ==2 && gameStatus[8] ==2)||
         (gameStatus[2] ==2 && gameStatus[5] ==2 && gameStatus[8] ==2)||
-        (gameStatus[6] ==2 && gameStatus[7] ==2 && gameStatus[8] ==2)||
+        (gameStatus[2] ==2 && gameStatus[4] ==2 && gameStatus[6] ==2)||
         (gameStatus[1] ==2 && gameStatus[4] ==2 && gameStatus[7] ==2)||
         (gameStatus[3] ==2 && gameStatus[4] ==2 && gameStatus[5] ==2)||
         (gameStatus[6] ==2 && gameStatus[7] ==2 && gameStatus[8] ==2)) {
