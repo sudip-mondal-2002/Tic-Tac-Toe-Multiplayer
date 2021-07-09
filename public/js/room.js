@@ -5,7 +5,7 @@ const socket = io("/");
 var enableClick = false;
 socket.emit("join-room", ROOM_ID);
 socket.on("user-connected", () => {
-    console.log("user connected");
+    document.getElementById("message").innerHTML = "User connected";
     myClick = "X";
     OtherClick = "O";
     enableClick = true;
@@ -32,7 +32,8 @@ const clicked = (id) => {
         (gameStatus[1] ==1 && gameStatus[4] == 1 && gameStatus[7] == 1)||
         (gameStatus[3] ==1 && gameStatus[4] == 1 && gameStatus[5] == 1)||
         (gameStatus[6] ==1 && gameStatus[7] == 1 && gameStatus[8] == 1)) {
-            console.log("You win");
+            document.getElementById("message").innerHTML = "You win";
+            enableClick = false;
         }
     }
 }
@@ -50,6 +51,7 @@ socket.on("clicked", (id) => {
         (gameStatus[1] ==2 && gameStatus[4] ==2 && gameStatus[7] ==2)||
         (gameStatus[3] ==2 && gameStatus[4] ==2 && gameStatus[5] ==2)||
         (gameStatus[6] ==2 && gameStatus[7] ==2 && gameStatus[8] ==2)) {
-            console.log("You Lose");
+            document.getElementById("message").innerHTML = "You Lose";
+            enableClick = false;
         }
 })
