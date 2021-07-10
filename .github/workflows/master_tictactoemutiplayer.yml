@@ -1,27 +1,25 @@
-# Docs for the Azure Web Apps Deploy action: https://go.microsoft.com/fwlink/?linkid=2134798
-# More GitHub Actions for Azure: https://go.microsoft.com/fwlink/?linkid=2135048
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Azure App Service - tictactoemutiplayer(Production), Build and deploy NodeJS app
+name: Build and deploy Node.js app to Azure Web App - tictactoemutiplayer
 
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: windows-latest
 
     steps:
-    # checkout the repo
-    - name: 'Checkout Github Action'
-      uses: actions/checkout@master
-
+    - uses: actions/checkout@v2
 
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '14.x'
+        node-version: '12.13.0'
 
     - name: npm install, build, and test
       run: |
@@ -29,11 +27,30 @@ jobs:
         npm run build --if-present
         npm run test --if-present
 
-    - name: Run Azure webapp deploy action using publish profile credentials
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v2
+      with:
+        name: node-app
+        path: .
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v2
+      with:
+        name: node-app
+
+    - name: 'Deploy to Azure Web App'
+      id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: tictactoemutiplayer
-        slot-name: Production
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7623244D2F354FE9A1B40698D0363A97 }}
+        app-name: 'tictactoemutiplayer'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d338548f80334f5c90d7a4bc3b62ee69 }}
         package: .
-
