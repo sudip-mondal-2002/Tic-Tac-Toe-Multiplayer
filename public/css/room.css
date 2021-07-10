@@ -30,3 +30,18 @@ button{
     padding-top: 10px;
     font-size: 40px;
 }
+#url{
+    position: absolute;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    left: 50%;
+    width: 350px;
+    background-color: rgba(250, 208, 20, 0.514);
+    top: 400px;
+    height: 30px;
+    text-align: center;
+    height: 40px;
+    padding-top: 5px;
+    font-size: 10px;
+    max-width: 100% !important;
+}

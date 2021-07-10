@@ -4,6 +4,16 @@ var myClick;
 var OtherClick;
 const socket = io("/");
 var enableClick = false;
+document.getElementById("url").value=location
+const copyToClip = () => {
+    copyText = document.getElementById("url")
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    copyText.value = "Copied";
+    copyText.onclick = null;
+    window.getSelection().removeAllRanges();
+}
 socket.emit("join-room", ROOM_ID);
 socket.on("user-connected", () => {
     document.getElementById("message").innerHTML = "User connected";
