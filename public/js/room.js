@@ -1,4 +1,5 @@
 var gameStatus = [0,0,0,0,0,0,0,0,0];
+var moves = 0;
 var myClick;
 var OtherClick;
 const socket = io("/");
@@ -18,7 +19,7 @@ socket.on("can-play", () => {
 })
 const clicked = (id) => {
     if (enableClick) {
-        console.log(gameStatus);
+        moves+=1;
         const element = document.getElementById(id);
         element.innerHTML = myClick;
         element.onclick = null;
@@ -35,10 +36,13 @@ const clicked = (id) => {
         (gameStatus[6] ==1 && gameStatus[7] == 1 && gameStatus[8] == 1)) {
             document.getElementById("message").innerHTML = "You win";
             enableClick = false;
+        }else if(moves==9){
+            document.getElementById("message").innerHTML = "It's a Draw";
         }
     }
 }
 socket.on("clicked", (id) => {
+    moves+=1;
     const element = document.getElementById(id);
     element.innerHTML = OtherClick;
     element.onclick = null;
@@ -54,5 +58,7 @@ socket.on("clicked", (id) => {
         (gameStatus[6] ==2 && gameStatus[7] ==2 && gameStatus[8] ==2)) {
             document.getElementById("message").innerHTML = "You Lose";
             enableClick = false;
+        }else if(moves==9){
+            document.getElementById("message").innerHTML = "It's a Draw";
         }
 })
