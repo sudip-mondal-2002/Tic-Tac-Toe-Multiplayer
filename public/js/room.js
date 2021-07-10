@@ -36,8 +36,10 @@ const clicked = (id) => {
         (gameStatus[6] ==1 && gameStatus[7] == 1 && gameStatus[8] == 1)) {
             document.getElementById("message").innerHTML = "You win";
             enableClick = false;
+            setTimeout(()=>{location.href='/';}, 2000);
         }else if(moves==9){
             document.getElementById("message").innerHTML = "It's a Draw";
+            setTimeout(()=>{location.href='/';}, 2000);
         }
     }
 }
@@ -58,12 +60,19 @@ socket.on("clicked", (id) => {
         (gameStatus[6] ==2 && gameStatus[7] ==2 && gameStatus[8] ==2)) {
             document.getElementById("message").innerHTML = "You Lose";
             enableClick = false;
+            setTimeout(()=>{location.href='/';}, 2000);
         }else if(moves==9){
             document.getElementById("message").innerHTML = "It's a Draw";
+            setTimeout(()=>{location.href='/';}, 2000);
         }
 })
 
 socket.on("full-room", () => {
     document.getElementById("message").innerHTML = "Room full...";
+    setTimeout(()=>{location.href='/';}, 2000);
+})
+
+socket.on("user-disconnected", () => {
+    document.getElementById("message").innerHTML = "User disconnected";
     setTimeout(()=>{location.href='/';}, 2000);
 })
