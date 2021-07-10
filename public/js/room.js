@@ -62,3 +62,8 @@ socket.on("clicked", (id) => {
             document.getElementById("message").innerHTML = "It's a Draw";
         }
 })
+
+socket.on("full-room", () => {
+    document.getElementById("message").innerHTML = "Room full...";
+    setTimeout(()=>{location.href='/';}, 2000);
+})
